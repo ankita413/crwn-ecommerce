@@ -1,0 +1,2 @@
+to see how components are connected :- 1) open developer tools and click on react dev tools.
+After that you can see the components
