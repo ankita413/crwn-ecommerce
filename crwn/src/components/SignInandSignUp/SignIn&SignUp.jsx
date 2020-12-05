@@ -1,8 +1,9 @@
 import React from 'react'
 import SignIn from '../SignIn/SignIn';
+import './SignIn&SignUp.scss'
 const SignInAndSignUp = () =>(
     <div className = "Sign-In-And-Sign-Up">
-      <SignIn/>
+      <SignIn className= "SignIn"/>
 
     </div>
 )
