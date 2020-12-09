@@ -1,13 +1,17 @@
 .Sign-In{
-    width: 30vw;
+    width: 380px;
     display: flex;
     flex-direction: column;
     padding:20px 60px ;
     .title{
         margin: 10px 0;
     }
-        .sub-title{
+    .sub-title{
             margin: 10px 0;
         }
+    .buttons{
+        display: flex;
+        justify-content: space-between;
+    }
     
 }
