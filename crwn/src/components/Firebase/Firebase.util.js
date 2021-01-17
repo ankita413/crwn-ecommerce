@@ -1,6 +1,6 @@
-import firebase from 'firebase/app'; //to use firebase library
-import 'firebase/firestore'; //for storage i.e. database
-import 'firebase/auth'; //for authentication
+import firebase from 'firebase/app'; 
+import 'firebase/firestore'; 
+import 'firebase/auth'; 
 
 const config = {
     apiKey: "AIzaSyDymfdpMoAHn3ZQiP1hANtNGcD5OqHDZGM",
@@ -11,14 +11,40 @@ const config = {
     appId: "1:169533326942:web:3ff1903a87e8f24a1d16cf",
     measurementId: "G-11R29PFYP2"
   };
-//initializeApp is built in fxn from firebase lib to initialize and create firebase app
-firebase.initializeApp(config);
-//to get access to authentication & storage in other files
+export const createUserProfileDocument = async(userAuth,additionalData) => {
+  if(userAuth == null) 
+  {
+    return;
+  }
+  
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const snapshot = await userRef.get();
+
+  if(snapshot.exists == false)
+  {
+    const {displayname, email} = userAuth;
+    const createdAt = new Date();
+    try{
+     await userRef.set({displayname,
+      email,
+      createdAt,
+      ...additionalData }) 
+    }catch(error){
+      console.log("error creating user",error.message);
+    }
+  }
+  return userRef;
+  console.log(firestore.doc)
+}
+
+  
+ firebase.initializeApp(config);
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
-//GoogleAuthProvider() = represents google sign in authentication provider
+
 const provider = new firebase.auth.GoogleAuthProvider();
-//to open a pop up to ask user which of the google accounts to use for signin
+
 provider.setCustomParameters({prompt : 'select_account'});
 export const SignInWithGoogle = () => (auth.signInWithPopup(provider));
 export default firebase;
