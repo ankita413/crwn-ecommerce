@@ -4,7 +4,9 @@ import {ReactComponent as Logo} from '../../assets/crown.svg';
 import './header.scss'
 import {auth} from '../Firebase/Firebase.util';
 import {connect} from 'react-redux'
-const Header = ({currentUser}) => (
+import CartIcon from "../Cart-Icon/cart-icon-component";
+import CartDropdown from '../CartDropdown/Cart-dropdown-component'
+const Header = ({currentUser,hidden}) => (
 <div className = "Header">
     <Link className = "logo-container" to = '/'>
         <Logo className = "logo"/>
@@ -21,11 +23,13 @@ const Header = ({currentUser}) => (
         : 
         (<Link className = "option" to = '/SignIn'>SIGN IN</Link>)
       }
+      <CartIcon/>
     </div>
-
+   {  hidden ? null : <CartDropdown/>}
 </div>
 )
 const mapStateToProps = (state) =>({
-    currentUser: state.user.currentUser
+    currentUser: state.user.currentUser,
+    hidden : state.cart.hidden
 })
 export default connect(mapStateToProps)(Header);
